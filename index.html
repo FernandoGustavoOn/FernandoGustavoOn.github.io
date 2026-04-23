@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FG Solutions | Soluções Digitais para Empresas</title>
+    <meta name="description" content="FG Solutions - Soluções digitais personalizadas para empresas. Criação de sites, sistemas web, automações e soluções inteligentes que geram resultados reais.">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        },
+                        accent: {
+                            purple: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            pink: '#ec4899',
+                        },
+                        dark: {
+                            900: '#0a0a0f',
+                            800: '#12121a',
+                            700: '#1a1a25',
+                            600: '#242435',
+                        }
+                    },
+                    animation: {
+                        'gradient': 'gradient 8s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0a0a0f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a25, #1a1a25) padding-box,
+                        linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899) border-box;
+            border: 1px solid transparent;
+        }
+        
+        .glass-card {
+            background: rgba(26, 26, 37, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .hero-gradient {
+            background: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.15), transparent 50%),
+                        radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.1), transparent 50%);
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        
+        .tech-badge {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.6);
+            transform: scale(1.05);
+        }
+        
+        .nav-blur {
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, rgba(26, 26, 37, 0.8), rgba(18, 18, 26, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .stat-number {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+        
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br items-center justify-center overflow-hidden">
+                        <img src="favicon.png" 
+                            alt="FG Solutions" 
+                            class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-display font-semibold">FG Solutions</span>
+                        <span class="text-xs text-gray-500">Por Fernando Gustavo</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#sobre" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Sobre</a>
+                    <a href="#servicos" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Serviços</a>
+                    <a href="#tecnologias" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Tecnologias</a>
+                    <a href="#projetos" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Projetos</a>
+                    <a href="#contato" class="btn-primary px-5 py-2 rounded-full text-sm font-medium text-white">Falar no WhatsApp</a>
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-white">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-b border-white/5">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#sobre" class="block py-2 text-gray-400 hover:text-white">Sobre</a>
+                <a href="#servicos" class="block py-2 text-gray-400 hover:text-white">Serviços</a>
+                <a href="#tecnologias" class="block py-2 text-gray-400 hover:text-white">Tecnologias</a>
+                <a href="#projetos" class="block py-2 text-gray-400 hover:text-white">Projetos</a>
+                <a href="#contato" class="block py-2 text-blue-400">Falar no WhatsApp</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center hero-gradient pt-16 overflow-hidden">
+        <div class="absolute inset-0 grid-pattern opacity-30"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 scroll-reveal">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span class="text-sm text-gray-300">Aceitando novos projetos • Resposta em 24h</span>
+            </div>
+            
+            <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight scroll-reveal">
+                Soluções digitais para<br>
+                <span class="gradient-text">empresas que querem crescer</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10 scroll-reveal">
+                Criação de sites, sistemas web, automações e soluções inteligentes para aumentar seus resultados, reduzir custos e acelerar seu negócio.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center scroll-reveal">
+                <a href="https://wa.me/5561974013618" target="_blank" class="btn-primary px-8 py-4 rounded-full font-semibold text-white flex items-center gap-2 glow-effect">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    Solicitar orçamento gratuito
+                </a>
+                <a href="#projetos" class="btn-secondary px-8 py-4 rounded-full font-semibold text-white flex items-center gap-2">
+                    <i data-lucide="briefcase" class="w-5 h-5"></i>
+                    Ver cases de sucesso
+                </a>
+            </div>
+            
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto scroll-reveal">
+                <div class="text-center">
+                    <div class="stat-number font-display text-3xl md:text-4xl font-bold mb-1">50+</div>
+                    <div class="text-sm text-gray-400">Projetos Entregues</div>
+                </div>
+                <div class="text-center">
+                    <div class="stat-number font-display text-3xl md:text-4xl font-bold mb-1">98%</div>
+                    <div class="text-sm text-gray-400">Clientes Satisfeitos</div>
+                </div>
+                <div class="text-center">
+                    <div class="stat-number font-display text-3xl md:text-4xl font-bold mb-1">5+</div>
+                    <div class="text-sm text-gray-400">Anos no Mercado</div>
+                </div>
+                <div class="text-center">
+                    <div class="stat-number font-display text-3xl md:text-4xl font-bold mb-1">24h</div>
+                    <div class="text-sm text-gray-400">Suporte Ágil</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-gray-500"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="scroll-reveal">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+                        <i data-lucide="building-2" class="w-4 h-4 text-blue-400"></i>
+                        <span class="text-sm text-blue-400 font-medium">Quem somos</span>
+                    </div>
+                    <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">
+                        Tecnologia que gera<br>
+                        <span class="gradient-text">resultados reais</span>
+                    </h2>
+                    <div class="space-y-4 text-gray-400 leading-relaxed">
+                        <p>
+                            Na <strong class="text-white">FG Solutions</strong>, desenvolvemos soluções digitais personalizadas que transformam desafios de negócio em oportunidades de crescimento. Não criamos apenas sistemas — criamos ferramentas que aumentam vendas, reduzem custos e automatizam processos.
+                        </p>
+                        <p>
+                            Nossa abordagem combina expertise técnica com compreensão profunda das necessidades empresariais. Analisamos seus processos, identificamos gargalos e entregamos soluções que realmente fazem diferença no dia a dia da sua operação.
+                        </p>
+                        <p>
+                            Projeto liderado por <strong class="text-white">Fernando Gustavo</strong>, desenvolvedor Full Stack com sólida experiência em suporte técnico e sistemas corporativos, trazendo visão prática e foco em resultados mensuráveis para cada projeto.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <div class="flex items-center gap-2 text-sm text-gray-300">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+                            <span>Foco em resultado</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-300">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+                            <span>Comunicação transparente</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-300">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+                            <span>Entrega no prazo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative scroll-reveal">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl blur-2xl opacity-20"></div>
+                    <div class="relative glass-card rounded-2xl p-8 gradient-border">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="text-center p-4 rounded-xl bg-white/5">
+                                <i data-lucide="trending-up" class="w-8 h-8 text-blue-400 mx-auto mb-2"></i>
+                                <div class="font-semibold text-white">Aumento de Vendas</div>
+                                <div class="text-sm text-gray-400">Sites que convertem</div>
+                            </div>
+                            <div class="text-center p-4 rounded-xl bg-white/5">
+                                <i data-lucide="clock" class="w-8 h-8 text-purple-400 mx-auto mb-2"></i>
+                                <div class="font-semibold text-white">Economia de Tempo</div>
+                                <div class="text-sm text-gray-400">Automação inteligente</div>
+                            </div>
+                            <div class="text-center p-4 rounded-xl bg-white/5">
+                                <i data-lucide="shield-check" class="w-8 h-8 text-green-400 mx-auto mb-2"></i>
+                                <div class="font-semibold text-white">Controle Total</div>
+                                <div class="text-sm text-gray-400">Sistemas integrados</div>
+                            </div>
+                            <div class="text-center p-4 rounded-xl bg-white/5">
+                                <i data-lucide="zap" class="w-8 h-8 text-yellow-400 mx-auto mb-2"></i>
+                                <div class="font-semibold text-white">Suporte Ágil</div>
+                                <div class="text-sm text-gray-400">Atendimento 24h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-24 relative bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 mb-6">
+                    <i data-lucide="layers" class="w-4 h-4 text-purple-400"></i>
+                    <span class="text-sm text-purple-400 font-medium">Nossos Serviços</span>
+                </div>
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Soluções que impulsionam seu negócio</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Cada serviço é pensado para gerar valor mensurável: mais vendas, menos custos, maior controle.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 card-hover scroll-reveal group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="globe" class="w-6 h-6 text-blue-400"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold mb-2">Criação de Sites Profissionais</h3>
+                    <p class="text-gray-400 text-sm mb-4">Sites modernos que convertem visitantes em clientes. Presença digital que aumenta suas vendas e fortalece sua marca.</p>
+                    <div class="flex items-center gap-2 text-green-400 text-sm">
+                        <i data-lucide="trending-up" class="w-4 h-4"></i>
+                        <span>Mais leads e vendas</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 card-hover scroll-reveal group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="settings" class="w-6 h-6 text-purple-400"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold mb-2">Sistemas Web Sob Medida</h3>
+                    <p class="text-gray-400 text-sm mb-4">Aplicações personalizadas que centralizam informações e eliminam retrabalho. Controle total da sua operação.</p>
+                    <div class="flex items-center gap-2 text-green-400 text-sm">
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        <span>Economia de tempo</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 card-hover scroll-reveal group">
+                    <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="repeat" class="w-6 h-6 text-green-400"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold mb-2">Automação de Processos</h3>
+                    <p class="text-gray-400 text-sm mb-4">Elimine tarefas manuais e reduza custos operacionais. Fluxos automatizados que funcionam 24/7 sem erro.</p>
+                    <div class="flex items-center gap-2 text-green-400 text-sm">
+                        <i data-lucide="arrow-down-circle" class="w-4 h-4"></i>
+                        <span>Redução de custos</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 card-hover scroll-reveal group">
+                    <div class="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="brain" class="w-6 h-6 text-pink-400"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold mb-2">Integração com Inteligência Artificial</h3>
+                    <p class="text-gray-400 text-sm mb-4">Soluções inteligentes que atendem clientes, analisam dados e otimizam processos automaticamente.</p>
+                    <div class="flex items-center gap-2 text-green-400 text-sm">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Tecnologia de ponta</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 card-hover scroll-reveal group">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6 text-cyan-400"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold mb-2">Dashboards e Business Intelligence</h3>
+                    <p class="text-gray-400 text-sm mb-4">Visualize seus dados em tempo real. Dashboards que ajudam a tomar decisões estratégicas com segurança.</p>
+                    <div class="flex items-center gap-2 text-green-400 text-sm">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                        <span>Visão completa do negócio</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 card-hover scroll-reveal group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="wrench" class="w-6 h-6 text-orange-400"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold mb-2">Manutenção e Suporte Técnico</h3>
+                    <p class="text-gray-400 text-sm mb-4">Seu sistema sempre atualizado, seguro e funcionando. Suporte ágil para manter sua operação sem paradas.</p>
+                    <div class="flex items-center gap-2 text-green-400 text-sm">
+                        <i data-lucide="shield" class="w-4 h-4"></i>
+                        <span>Segurança e tranquilidade</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 card-hover scroll-reveal group md:col-span-2 lg:col-span-1">
+                    <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="zap" class="w-6 h-6 text-yellow-400"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold mb-2">Soluções Low Code</h3>
+                    <p class="text-gray-400 text-sm mb-4">Desenvolvimento ágil com PowerApps. Entregas rápidas sem comprometer qualidade, ideal para validações.</p>
+                    <div class="flex items-center gap-2 text-green-400 text-sm">
+                        <i data-lucide="rocket" class="w-4 h-4"></i>
+                        <span>Entrega rápida</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10">
+                    <i data-lucide="presentation" class="w-5 h-5 text-gray-400"></i>
+                    <span class="text-gray-300 text-sm"><strong>Serviço adicional:</strong> Criação de apresentações profissionais (PowerPoint) para empresas e pitch decks</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section id="tecnologias" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-6">
+                    <i data-lucide="code-2" class="w-4 h-4 text-cyan-400"></i>
+                    <span class="text-sm text-cyan-400 font-medium">Tecnologias</span>
+                </div>
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Stack tecnológico moderno e robusto</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Utilizamos as melhores ferramentas do mercado para entregar soluções escaláveis e de alta performance.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 scroll-reveal">
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🌐</div>
+                    <div class="font-medium text-sm">HTML/CSS/JS</div>
+                    <div class="text-xs text-gray-500 mt-1">Frontend</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">⚡</div>
+                    <div class="font-medium text-sm">Vue.js</div>
+                    <div class="text-xs text-gray-500 mt-1">Framework</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🎨</div>
+                    <div class="font-medium text-sm">Bootstrap</div>
+                    <div class="text-xs text-gray-500 mt-1">UI Framework</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🐍</div>
+                    <div class="font-medium text-sm">Python</div>
+                    <div class="text-xs text-gray-500 mt-1">Backend</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🗄️</div>
+                    <div class="font-medium text-sm">SQL/MySQL</div>
+                    <div class="text-xs text-gray-500 mt-1">Database</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🔗</div>
+                    <div class="font-medium text-sm">APIs REST</div>
+                    <div class="text-xs text-gray-500 mt-1">Integração</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🌿</div>
+                    <div class="font-medium text-sm">Git/GitHub</div>
+                    <div class="text-xs text-gray-500 mt-1">Versionamento</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">📱</div>
+                    <div class="font-medium text-sm">Power Apps</div>
+                    <div class="text-xs text-gray-500 mt-1">Low Code</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🤖</div>
+                    <div class="font-medium text-sm">Automação</div>
+                    <div class="text-xs text-gray-500 mt-1">RPA/IA</div>
+                </div>
+                <div class="tech-badge rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">✅</div>
+                    <div class="font-medium text-sm">QA/Testes</div>
+                    <div class="text-xs text-gray-500 mt-1">Qualidade</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projetos" class="py-24 relative bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6">
+                    <i data-lucide="folder" class="w-4 h-4 text-pink-400"></i>
+                    <span class="text-sm text-pink-400 font-medium">Cases de Sucesso</span>
+                </div>
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Resultados que nossos clientes conquistaram</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Projetos reais que demonstram como a tecnologia bem aplicada resolve problemas e gera valor.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card rounded-2xl overflow-hidden card-hover scroll-reveal group">
+                    <div class="h-48 bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZ2LTRoLTJ2NGgyem0tNiA2aC00djJoNHYtMnptMC02di00aC00djRoNHptLTYgNmgtNHYyaDR2LTJ6bTAtNnYtNGgtNHY0aDR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+                        <i data-lucide="ticket" class="w-16 h-16 text-white/80 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold mb-2">Sistema de Chamados Help Desk</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-start gap-2">
+                                <span class="text-red-400 text-xs font-medium mt-1">PROBLEMA:</span>
+                                <p class="text-gray-400 text-sm">Empresa perdia chamados, não tinha controle de SLA e clientes insatisfeitos com demora no atendimento.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-blue-400 text-xs font-medium mt-1">SOLUÇÃO:</span>
+                                <p class="text-gray-400 text-sm">Sistema completo de tickets com priorização, acompanhamento em tempo real, notificações automáticas e dashboard gerencial.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400 text-xs font-medium mt-1">RESULTADO:</span>
+                                <p class="text-gray-400 text-sm">Redução de 60% no tempo de resposta, aumento de 40% na satisfação do cliente e eliminação de chamados perdidos.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-blue-500/20 text-blue-300">Vue.js</span>
+                            <span class="text-xs px-2 py-1 rounded bg-blue-500/20 text-blue-300">Node.js</span>
+                            <span class="text-xs px-2 py-1 rounded bg-blue-500/20 text-blue-300">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card rounded-2xl overflow-hidden card-hover scroll-reveal group">
+                    <div class="h-48 bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZ2LTRoLTJ2NGgyem0tNiA2aC00djJoNHYtMnptMC02di00aC00djRoNHptLTYgNmgtNHYyaDR2LTJ6bTAtNnYtNGgtNHY0aDR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+                        <i data-lucide="package" class="w-16 h-16 text-white/80 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold mb-2">Sistema de Controle de Estoque</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-start gap-2">
+                                <span class="text-red-400 text-xs font-medium mt-1">PROBLEMA:</span>
+                                <p class="text-gray-400 text-sm">Controle manual em planilhas causava erros, ruptura de produtos e dificuldade na previsão de compras.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-blue-400 text-xs font-medium mt-1">SOLUÇÃO:</span>
+                                <p class="text-gray-400 text-sm">Sistema web com controle de entrada/saída, alertas de estoque mínimo, relatórios de movimentação e integração com fornecedores.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400 text-xs font-medium mt-1">RESULTADO:</span>
+                                <p class="text-gray-400 text-sm">Eliminação de rupturas, redução de 30% no capital de giro parado e previsibilidade de demanda.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-purple-500/20 text-purple-300">Python</span>
+                            <span class="text-xs px-2 py-1 rounded bg-purple-500/20 text-purple-300">Django</span>
+                            <span class="text-xs px-2 py-1 rounded bg-purple-500/20 text-purple-300">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card rounded-2xl overflow-hidden card-hover scroll-reveal group">
+                    <div class="h-48 bg-gradient-to-br from-pink-600 to-pink-800 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZ2LTRoLTJ2NGgyem0tNiA2aC00djJoNHYtMnptMC02di00aC00djRoNHptLTYgNmgtNHYyaDR2LTJ6bTAtNnYtNGgtNHY0aDR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+                        <i data-lucide="building-2" class="w-16 h-16 text-white/80 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold mb-2">Site Institucional Empresarial</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-start gap-2">
+                                <span class="text-red-400 text-xs font-medium mt-1">PROBLEMA:</span>
+                                <p class="text-gray-400 text-sm">Empresa sem presença digital forte, perdendo oportunidades para concorrentes e sem credibilidade online.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-blue-400 text-xs font-medium mt-1">SOLUÇÃO:</span>
+                                <p class="text-gray-400 text-sm">Site moderno, responsivo, otimizado para SEO com blog integrado, formulários de captura e integração com WhatsApp.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400 text-xs font-medium mt-1">RESULTADO:</span>
+                                <p class="text-gray-400 text-sm">Aumento de 300% em leads qualificados, melhor posicionamento no Google e fortalecimento da marca.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-pink-500/20 text-pink-300">Vue.js</span>
+                            <span class="text-xs px-2 py-1 rounded bg-pink-500/20 text-pink-300">Tailwind</span>
+                            <span class="text-xs px-2 py-1 rounded bg-pink-500/20 text-pink-300">SEO</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card rounded-2xl overflow-hidden card-hover scroll-reveal group">
+                    <div class="h-48 bg-gradient-to-br from-cyan-600 to-cyan-800 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZ2LTRoLTJ2NGgyem0tNiA2aC00djJoNHYtMnptMC02di00aC00djRoNHptLTYgNmgtNHYyaDR2LTJ6bTAtNnYtNGgtNHY0aDR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+                        <i data-lucide="zap" class="w-16 h-16 text-white/80 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold mb-2">Automação de Processos com PowerApps</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-start gap-2">
+                                <span class="text-red-400 text-xs font-medium mt-1">PROBLEMA:</span>
+                                <p class="text-gray-400 text-sm">Processo de aprovação de despesas manual, demorado e com muita burocracia em papel.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-blue-400 text-xs font-medium mt-1">SOLUÇÃO:</span>
+                                <p class="text-gray-400 text-sm">App mobile com PowerApps integrado ao Power Automate, fluxo de aprovação digital e integração com ERP.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400 text-xs font-medium mt-1">RESULTADO:</span>
+                                <p class="text-gray-400 text-sm">Redução de 80% no tempo de aprovação, eliminação de papel e rastreabilidade total dos processos.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-cyan-500/20 text-cyan-300">PowerApps</span>
+                            <span class="text-xs px-2 py-1 rounded bg-cyan-500/20 text-cyan-300">Power Automate</span>
+                            <span class="text-xs px-2 py-1 rounded bg-cyan-500/20 text-cyan-300">SharePoint</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card rounded-2xl overflow-hidden card-hover scroll-reveal group md:col-span-2 lg:col-span-1">
+                    <div class="h-48 bg-gradient-to-br from-green-600 to-green-800 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZ2LTRoLTJ2NGgyem0tNiA2aC00djJoNHYtMnptMC02di00aC00djRoNHptLTYgNmgtNHYyaDR2LTJ6bTAtNnYtNGgtNHY0aDR6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
+                        <i data-lucide="bar-chart-2" class="w-16 h-16 text-white/80 relative z-10 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold mb-2">Dashboard de Dados em Tempo Real</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-start gap-2">
+                                <span class="text-red-400 text-xs font-medium mt-1">PROBLEMA:</span>
+                                <p class="text-gray-400 text-sm">Gestores sem visibilidade de KPIs, tomando decisões baseadas em dados desatualizados.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-blue-400 text-xs font-medium mt-1">SOLUÇÃO:</span>
+                                <p class="text-gray-400 text-sm">Dashboard interativo com atualização em tempo real, filtros dinâmicos, exportação de relatórios e alertas inteligentes.</p>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="text-green-400 text-xs font-medium mt-1">RESULTADO:</span>
+                                <p class="text-gray-400 text-sm">Decisões 5x mais rápidas, identificação imediata de problemas e aumento de 25% na eficiência operacional.</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 rounded bg-green-500/20 text-green-300">Python</span>
+                            <span class="text-xs px-2 py-1 rounded bg-green-500/20 text-green-300">Chart.js</span>
+                            <span class="text-xs px-2 py-1 rounded bg-green-500/20 text-green-300">APIs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentials Section -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 mb-6">
+                    <i data-lucide="award" class="w-4 h-4 text-yellow-400"></i>
+                    <span class="text-sm text-yellow-400 font-medium">Nossos Diferenciais</span>
+                </div>
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Por que empresas escolhem a FG Solutions</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 scroll-reveal flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="rocket" class="w-6 h-6 text-blue-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-1">Entrega Rápida</h3>
+                        <p class="text-gray-400 text-sm">Metodologia ágil que garante resultados em tempo recorde sem comprometer qualidade.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 scroll-reveal flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="message-square" class="w-6 h-6 text-purple-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-1">Comunicação Transparente</h3>
+                        <p class="text-gray-400 text-sm">Sem jargonês técnico. Você entende cada etapa do projeto e participa ativamente das decisões.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 scroll-reveal flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="target" class="w-6 h-6 text-green-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-1">Foco em Resultado</h3>
+                        <p class="text-gray-400 text-sm">Não entregamos apenas código, entregamos soluções que resolvem problemas e geram valor mensurável.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 scroll-reveal flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="briefcase" class="w-6 h-6 text-pink-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-1">Experiência Comprovada</h3>
+                        <p class="text-gray-400 text-sm">Background em suporte técnico e empresas traz visão prática dos desafios do dia a dia corporativo.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 scroll-reveal flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="refresh-cw" class="w-6 h-6 text-cyan-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-1">Adaptação ao Seu Negócio</h3>
+                        <p class="text-gray-400 text-sm">Aprendemos seu processo e criamos soluções sob medida, não templates genéricos.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 scroll-reveal flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-yellow-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-1">Tecnologia de Ponta</h3>
+                        <p class="text-gray-400 text-sm">Utilizamos Inteligência Artificial e ferramentas modernas para criar soluções preparadas para o futuro.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center scroll-reveal">
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-6">
+                Precisa de um sistema ou site que<br>
+                <span class="gradient-text">realmente funcione?</span>
+            </h2>
+            <p class="text-xl text-gray-300 mb-10">
+                A <strong class="text-white">FG Solutions</strong> pode te ajudar. Solicite um orçamento gratuito e descubra como podemos impulsionar seu negócio.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="https://wa.me/5561974013618" target="_blank" class="btn-primary px-10 py-5 rounded-full font-bold text-lg text-white flex items-center gap-3 glow-effect">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                    Falar no WhatsApp
+                </a>
+                <a href="mailto:12fernandogustavo@gmail.com" class="btn-secondary px-10 py-5 rounded-full font-bold text-lg text-white flex items-center gap-3">
+                    <i data-lucide="mail" class="w-6 h-6"></i>
+                    Enviar Email
+                </a>
+            </div>
+            <p class="mt-6 text-gray-400 text-sm">Orçamento sem compromisso • Resposta em até 24 horas</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="py-24 relative bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="scroll-reveal">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+                        <i data-lucide="contact" class="w-4 h-4 text-blue-400"></i>
+                        <span class="text-sm text-blue-400 font-medium">Fale Conosco</span>
+                    </div>
+                    <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Vamos transformar seu negócio</h2>
+                    <p class="text-gray-400 mb-8">Estamos prontos para entender sua necessidade e propor a melhor solução. Atendemos empresas de todos os portes.</p>
+                    
+                    <div class="space-y-6">
+                        <a href="https://wa.me/5561974013618" target="_blank" class="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-green-500/50 transition-colors group">
+                            <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="message-circle" class="w-6 h-6 text-green-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">WhatsApp</div>
+                                <div class="text-sm text-gray-400">Atendimento rápido e direto</div>
+                            </div>
+                            <i data-lucide="arrow-right" class="w-5 h-5 text-gray-500 ml-auto"></i>
+                        </a>
+                        
+                        <a href="mailto:12fernandogustavo@gmail.com" class="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-blue-500/50 transition-colors group">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="mail" class="w-6 h-6 text-blue-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Email</div>
+                                <div class="text-sm text-gray-400">12fernandogustavo@gmail.com</div>
+                            </div>
+                            <i data-lucide="arrow-right" class="w-5 h-5 text-gray-500 ml-auto"></i>
+                        </a>
+                        
+                        <a href="https://github.com/FernandoGustavoOn" target="_blank" class="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-purple-500/50 transition-colors group">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="github" class="w-6 h-6 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">GitHub</div>
+                                <div class="text-sm text-gray-400">github.com/FernandoGustavoOn</div>
+                            </div>
+                            <i data-lucide="external-link" class="w-5 h-5 text-gray-500 ml-auto"></i>
+                        </a>
+                        
+                        <a href="https://linkedin.com/in/fernando-gustavo-72b801200" target="_blank" class="flex items-center gap-4 p-4 rounded-xl glass-card hover:border-blue-500/50 transition-colors group">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="linkedin" class="w-6 h-6 text-blue-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">LinkedIn</div>
+                                <div class="text-sm text-gray-400">linkedin.com/in/fernando-gustavo-72b801200</div>
+                            </div>
+                            <i data-lucide="external-link" class="w-5 h-5 text-gray-500 ml-auto"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="scroll-reveal">
+                    <div class="glass-card rounded-2xl p-8 gradient-border">
+                        <h3 class="font-display text-xl font-semibold mb-6">Solicite uma proposta</h3>
+                        <form class="space-y-4" onsubmit="enviarPropostaWhatsApp(event)">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Nome</label>
+                                <input id="nome" type="text" class="w-full px-4 py-3 rounded-xl bg-dark-700 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Seu nome completo">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                                <input id="email" type="email" class="w-full px-4 py-3 rounded-xl bg-dark-700 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors" placeholder="seu@email.com">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Empresa</label>
+                                <input id="empresa" type="text" class="w-full px-4 py-3 rounded-xl bg-dark-700 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Nome da empresa">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Tipo de projeto</label>
+                                <select id="tipoProjeto" class="w-full px-4 py-3 rounded-xl bg-dark-700 border border-white/10 text-white focus:outline-none focus:border-blue-500 transition-colors">
+                                    <option value="">Selecione...</option>
+                                    <option value="Criação de Site">Criação de Site</option>
+                                    <option value="Sistema Web">Sistema Web</option>
+                                    <option value="Automação">Automação</option>
+                                    <option value="Dashboard/Dados">Dashboard/Dados</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Descrição do projeto</label>
+                                <textarea id="descricaoProjeto" rows="4" class="w-full px-4 py-3 rounded-xl bg-dark-700 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Conte-nos sobre seu projeto, objetivos e desafios..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full btn-primary py-4 rounded-xl font-semibold text-white flex items-center justify-center gap-2">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                                Solicitar proposta
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br items-center justify-center overflow-hidden">
+                        <img src="favicon.png" 
+                            alt="FG Solutions" 
+                            class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-display font-semibold">FG Solutions</span>
+                        <span class="text-xs text-gray-500">Por Fernando Gustavo</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <a href="https://github.com/FernandoGustavoOn" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/fernando-gustavo-72b801200" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://wa.me/5561974013618" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    </a>
+                    <a href="mailto:12fernandogustavo@gmail.com" class="text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </a>
+                </div>
+                
+                <div class="text-gray-500 text-sm text-center md:text-right">
+                    <div>Brasília - DF</div>
+                    <div>© 2024 FG Solutions. Todos os direitos reservados.</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // GSAP ScrollTrigger animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate elements on scroll
+        gsap.utils.toArray('.scroll-reveal').forEach((element, i) => {
+            gsap.fromTo(element, 
+                {
+                    opacity: 0,
+                    y: 30
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    delay: i % 3 * 0.1
+                }
+            );
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add glow effect to buttons on hover
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                gsap.to(btn, { scale: 1.02, duration: 0.3 });
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { scale: 1, duration: 0.3 });
+            });
+        });
+        
+        // Parallax effect for hero section
+        gsap.to(".hero-gradient > div", {
+            yPercent: 50,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".hero-gradient",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+
+        // whatsapp link with pre-filled message
+        function enviarPropostaWhatsApp(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const empresa = document.getElementById('empresa').value.trim();
+            const tipoProjeto = document.getElementById('tipoProjeto').value;
+            const descricaoProjeto = document.getElementById('descricaoProjeto').value.trim();
+
+            if (!nome || !email || !tipoProjeto || !descricaoProjeto) {
+                alert('Preencha nome, email, tipo de projeto e descrição.');
+                return;
+            }
+
+            const numeroWhatsApp = '5561974013618';
+
+            const mensagem =
+        `Olá! Vim pelo site da FG Solutions e gostaria de solicitar uma proposta.
+
+        Nome: ${nome}
+        Email: ${email}
+        Empresa: ${empresa || 'Não informado'}
+        Tipo de projeto: ${tipoProjeto}
+        Descrição do projeto: ${descricaoProjeto}`;
+
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        function enviarPropostaWhatsApp(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const empresa = document.getElementById('empresa').value.trim();
+            const tipoProjeto = document.getElementById('tipoProjeto').value;
+            const descricaoProjeto = document.getElementById('descricaoProjeto').value.trim();
+
+            const numeroWhatsApp = '5561974013618'; // troque pelo seu número
+
+            const mensagem = 
+        `Olá! Vim pelo site da FG Solutions e gostaria de solicitar uma proposta.
+
+        Nome: ${nome}
+        Email: ${email}
+        Empresa: ${empresa}
+        Tipo de projeto: ${tipoProjeto}
+        Descrição do projeto: ${descricaoProjeto}`;
+
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
